@@ -124,7 +124,7 @@ div[data-testid="stWidgetLabel"] p {
     border: 1px solid #ffffff;
     border-radius: 2px; 
     padding: 0.8rem 2rem;
-  0 font-weight: 600;
+    font-weight: 600;
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
