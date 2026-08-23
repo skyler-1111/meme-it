@@ -49,7 +49,7 @@ def get_coordinate_grid(h, w, device):
     return coords
 
 def image_to_tensor(img, h, w, device):
-    img_resized = img.resize((w, h), Image.Resampling.LANCZOS)
+    img_resized = img.convert("RGB").resize((w, h), Image.Resampling.LANCZOS)
     arr = np.array(img_resized).astype(np.float32) / 255.0
     tensor = torch.tensor(arr, device=device).reshape(-1, 3)
     return tensor
