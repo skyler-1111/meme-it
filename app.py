@@ -268,7 +268,7 @@ if not os.path.exists(TARGET_PATH):
     st.error(f"Target image not found at '{TARGET_PATH}'! verify the folder structure.")
     st.stop()
 
-target_image = Image.open(TARGET_PATH)
+target_image = Image.open(TARGET_PATH).convert("RGB")
 
 st.sidebar.markdown('<div class="sidebar-header">Controls</div>', unsafe_allow_html=True)
 
@@ -352,7 +352,7 @@ uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
 source_image = None
 if uploaded_file is not None:
-    source_image = Image.open(uploaded_file)
+    source_image = Image.open(uploaded_file).convert("RGB")
     st.image(source_image, caption="Your Original Image", use_container_width=True)
 else:
     st.info("Upload a picture to run the neural transmutation!")
