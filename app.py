@@ -351,30 +351,35 @@ st.markdown('<div class="upload-card-title">Upload Your Image</div>', unsafe_all
 uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
 source_image = None
+
 if uploaded_file is not None:
     source_image = Image.open(uploaded_file).convert("RGB")
-    st.image(source_image, caption="Your Original Image", use_container_width=True)
+    st.image(source_image, use_container_width=True)
 else:
-    st.info("Upload a picture to run the neural transmutation!")
-    placeholder_w, placeholder_h = 256, 256
-    grad = Image.new("RGB", (placeholder_w, placeholder_h))
-    pixels = grad.load()
-    for x in range(placeholder_w):
-        for y in range(placeholder_h):
-            pixels[x, y] = (int(x / placeholder_w * 255), 100, int(y / placeholder_h * 255))
-    source_image = grad
-    st.image(source_image, caption="Default Placeholder Image (Upload a file to override)", use_container_width=True)
-    
-st.markdown('</div>', unsafe_allow_html=True)
+    st.info("Upload a picture to run the transformation.")
 
-run_btn = st.button("Start Transmutation")
+    placeholder_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "picture",
+        "moon.jpg"
+    )
+
+    source_image = Image.open(placeholder_path).convert("RGB")
+    st.image(
+        source_image,
+        caption="Default Placeholder Image",
+        use_container_width=True
+    )
+
+st.markdown("</div>", unsafe_allow_html=True)
+run_btn = st.button("Start Transformation")
 
 if run_btn:
     if uploaded_file is None:
-        st.warning("Using default placeholder image. Upload a picture above to transmute your own photo!")
+        st.warning("Using default placeholder image. Upload a picture above to transform your own photo!")
         
     st.markdown('<div class="morphed-card">', unsafe_allow_html=True)
-    st.markdown('<div class="morphed-card-title">Transmuted Output</div>', unsafe_allow_html=True)
+    st.markdown('<div class="morphed-card-title">Transformed Output</div>', unsafe_allow_html=True)
     status_box = st.empty()
     progress_bar = st.progress(0)
     
