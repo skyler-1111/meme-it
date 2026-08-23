@@ -50,8 +50,8 @@ def run_style_transfer(content_img: Image.Image, style_img: Image.Image,
         transforms.Normalize(mean=IMAGENET_MEAN.tolist(), std=IMAGENET_STD.tolist())
     ])
     
-    content_tensor = loader(content_img).unsqueeze(0).to(device)
-    style_tensor = loader(style_img).unsqueeze(0).to(device)
+    content_tensor = loader(content_img.convert("RGB")).unsqueeze(0).to(device)
+    style_tensor = loader(style_img.convert("RGB")).unsqueeze(0).to(device)
     
     # Load vgg-19 model features (pretrained)
     try:
@@ -63,17 +63,18 @@ def run_style_transfer(content_img: Image.Image, style_img: Image.Image,
     for param in vgg.parameters():
         param.requires_grad = False
 
-    content_features = get_vgg_features(content_tensor, vgg)
-    style_features = get_vgg_features(style_tensor, vgg)
-    style_grams = {layer: gram_matrix(style_features[layer]) for layer in style_features}
-    target_tensor = content_tensor.clone().requires_grad_(True)
-    optimizer = optim.Adam([target_tensor], lr=lr)
-    style_layer_weights = {
-        'conv1_1': 1.0,
-        'conv2_1': 0.8,
-        'conv3_1': 0.5,
-        'conv4_1': 0.3,
-        'conv5_1': 0.1
+    with torch.no_grad():
+        content_features = get_vgg_features(content_tensor, vgg)
+        style_features = get_vgg_features(style_tensor, vgg)
+        style_grams = {layer: gram_matrix(style_features[layer]) for layer in style_features}
+        target_tensor = content_tensor.clone().requires_grad_(True)
+        optimizer = optim.Adam([target_tensor], lr=lr)
+        style_layer_weights = {
+            'conv1_1': 1.0,
+            'conv2_1': 0.8,
+            'conv3_1': 0.5,
+            'conv4_1': 0.3,
+            'conv5_1': 0.1
     }
    
     denormalize = transforms.Normalize(
