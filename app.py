@@ -192,9 +192,9 @@ div[data-testid="stWidgetLabel"] p {
 }
 
 .metrics-container p {
-    color: #c5a880; /* Gold text highlight for data metrics
+    color: #c5a880; 
     font-weight: 300;
-    font-size: 1.8rem; /* Clean, oversized numbers
+    font-size: 1.8rem; 
     margin-top: 0.5rem;
     margin-bottom: 0;
 }
@@ -232,13 +232,13 @@ div[data-testid="stSlider"] .st-ae {
 }
 
 div[data-testid="stSlider"] .st-af {
-    background-color: #c5a880; /* Active fill matches gold accent
+    background-color: #c5a880; 
 }
 
 div[data-testid="stSlider"] [role="slider"] {
     background-color: #ffffff;
     border: 1px solid #ffffff;
-    border-radius: 50%; /* Smooth circular button
+    border-radius: 50%; 
     width: 16px;
     height: 16px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);
@@ -309,7 +309,7 @@ if algorithm == "Neural Morphing (INR MLP)":
         format="%.3f",
         help="How fast the AI adjusts its painting at each step. Setting this too fast may result in a chaotic, messy image; setting it too slow will prevent it from morphing fully."
     )
-    st.sidebar.markdown('<div class="desc-box">How quickly the AI adapts. Recommend 0.010 for balanced results.</div>', unsafe_allow_html=True)
+    st.sidebar.markdown('<div class="desc-box">How quickly the AI adapts.</div>', unsafe_allow_html=True)
     
 elif algorithm == "Neural Style Transfer (VGG-19)":
  
