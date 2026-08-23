@@ -55,7 +55,6 @@ def image_to_tensor(img, h, w, device):
     return tensor
 
 def tensor_to_image(tensor, h, w):
-    """Converts a flat RGB tensor [H*W, 3] back to a PIL Image."""
     arr = tensor.detach().cpu().numpy().reshape(h, w, 3)
     arr = (np.clip(arr, 0.0, 1.0) * 255.0).astype(np.uint8)
     return Image.fromarray(arr)
